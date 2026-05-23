@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MoreGear — Gaming Deals & Promo Codes</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8001a;
+    --red-dark: #a80012;
+    --red-glow: rgba(232,0,26,0.25);
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --border: rgba(255,255,255,0.07);
+    --border-red: rgba(232,0,26,0.4);
+    --text: #f0f0f0;
+    --muted: #888;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: 0 2rem;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(232,0,26,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .logo span { color: var(--red); }
+
+  .nav-tag {
+    font-size: 11px;
+    font-family: var(--font-display);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  .hero-body {
+    padding: 4rem 0 5rem;
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 8vw, 88px);
+    font-weight: 800;
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    color: #fff;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-title .accent { color: var(--red); }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* diagonal red line */
+  .hero-line {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, transparent, var(--red), transparent);
+    opacity: 0.5;
+  }
+
+  /* MAIN */
+  main {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+  }
+
+  /* FILTER */
+  .section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 7px 16px;
+    border-radius: 2px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--border-red);
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    background: var(--red);
+    border-color: var(--red);
+    color: #fff;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .card {
+    background: var(--bg2);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: background 0.15s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 0;
+    background: var(--red);
+    transition: height 0.25s ease;
+  }
+
+  .card:hover { background: var(--bg3); }
+  .card:hover::before { height: 100%; }
+
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .brand {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .badge {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 1px;
+    flex-shrink: 0;
+  }
+
+  .badge-hot { background: var(--red); color: #fff; }
+  .badge-new { background: transparent; border: 1px solid var(--red); color: var(--red); }
+  .badge-limited { background: #222; color: var(--muted); border: 1px solid var(--border); }
+
+  .category {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .discount-text {
+    font-size: 15px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .code-row {
+    display: flex;
+    align-items: center;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .code {
+    font-family: 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--red);
+    padding: 10px 14px;
+    flex: 1;
+  }
+
+  .copy-btn {
+    background: var(--bg3);
+    border: none;
+    border-left: 1px solid var(--border);
+    color: var(--muted);
+    padding: 10px 14px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: var(--font-display);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .copy-btn:hover { background: var(--red); color: #fff; }
+
+  .visit-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 9px 0;
+    width: 100%;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    border-radius: 2px;
+    margin-top: 4px;
+  }
+
+  .visit-btn:hover {
+    border-color: var(--red);
+    color: #fff;
+    background: var(--red-dark);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+
+  footer span { color: var(--red); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-body { animation: fadeUp 0.6s ease both; }
+  .grid { animation: fadeUp 0.6s 0.2s ease both; }
+
+  /* COUNT */
+  .deal-count {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .deal-count span { color: var(--red); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div style="max-width:1200px; margin:0 auto;">
+    <nav>
+      <div class="logo">More<span>Gear</span></div>
+      <div class="nav-tag">Promo Codes</div>
+    </nav>
+    <div class="hero-body">
+      <div class="hero-eyebrow">// Exclusive deals for gamers</div>
+      <h1 class="hero-title">Level up.<br>Spend <span class="accent">less.</span></h1>
+      <p class="hero-sub">Hand-picked promo codes for the best gaming gear on the market. Updated regularly.</p>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+</div>
+
+<main>
+  <div class="section-header">
+    <div class="section-title">// Active deals</div>
+    <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
+      <div class="deal-count">Showing <span id="count">8</span> deals</div>
+      <div class="filters">
+        <button class="filter-btn active" onclick="filter('all',this)">All</button>
+        <button class="filter-btn" onclick="filter('mouse',this)">Mouse & KB</button>
+        <button class="filter-btn" onclick="filter('headset',this)">Headsets</button>
+        <button class="filter-btn" onclick="filter('chair',this)">Chairs</button>
+        <button class="filter-btn" onclick="filter('monitor',this)">Monitors</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  <strong style="color:#fff; font-family:'Barlow Condensed',sans-serif; letter-spacing:2px; font-size:15px;">MORE<span>GEAR</span></strong><br><br>
+  Affiliate links may earn a commission · Codes verified regularly
+</footer>
+
+<script>
+const deals = [
+  { brand:"Razer", cat:"mouse", label:"Mouse & Keyboard", code:"GEAR15", discount:"15% off all mice & keyboards", badge:"hot", url:"https://razer.com/affiliate" },
+  { brand:"SteelSeries", cat:"headset", label:"Headsets", code:"STEEL20", discount:"20% off Arctis headset series", badge:"new", url:"https://steelseries.com" },
+  { brand:"Secretlab", cat:"chair", label:"Gaming Chairs", code:"DROP10", discount:"$10 off any chair model", badge:"limited", url:"https://secretlab.co" },
+  { brand:"ASUS ROG", cat:"monitor", label:"Monitors", code:"ROG25", discount:"25% off 144hz+ monitors", badge:"hot", url:"https://asus.com/rog" },
+  { brand:"Corsair", cat:"mouse", label:"Mouse & Keyboard", code:"COR12", discount:"12% off all keyboards", badge:"new", url:"https://corsair.com" },
+  { brand:"HyperX", cat:"headset", label:"Headsets", code:"HX18", discount:"18% off Cloud headset line", badge:"hot", url:"https://hyperx.com" },
+  { brand:"DXRacer", cat:"chair", label:"Gaming Chairs", code:"DXR15", discount:"15% off racing series chairs", badge:"limited", url:"https://dxracer.com" },
+  { brand:"LG UltraGear", cat:"monitor", label:"Monitors", code:"LGU30", discount:"30% off UltraGear monitors", badge:"hot", url:"https://lg.com/ultragear" },
+];
+
+let active = 'all';
+
+function filter(cat, btn) {
+  active = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function render() {
+  const filtered = active === 'all' ? deals : deals.filter(d => d.cat === active);
+  document.getElementById('count').textContent = filtered.length;
+  document.getElementById('grid').innerHTML = filtered.map((d,i) => `
+    <div class="card">
+      <div class="card-top">
+        <div class="brand">${d.brand}</div>
+        <span class="badge badge-${d.badge}">${d.badge}</span>
+      </div>
+      <div class="category">${d.label}</div>
+      <div class="discount-text">${d.discount}</div>
+      <div class="code-row">
+        <div class="code" id="c${i}">${d.code}</div>
+        <button class="copy-btn" onclick="copy('${d.code}',${i},this)">Copy</button>
+      </div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')">Visit Store →</button>
+    </div>
+  `).join('');
+}
+
+function copy(code, i, btn) {
+  navigator.clipboard.writeText(code).catch(()=>{});
+  btn.textContent = 'Copied!';
+  btn.style.background = '#1a5c1a';
+  btn.style.color = '#4caf50';
+  setTimeout(() => { btn.textContent = 'Copy'; btn.style.background=''; btn.style.color=''; }, 1500);
+}
+
+render();
+</script>
+</body>
+</html>
