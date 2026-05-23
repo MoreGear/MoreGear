@@ -389,10 +389,7 @@
       <div class="deal-count">Showing <span id="count">8</span> deals</div>
       <div class="filters">
         <button class="filter-btn active" onclick="filter('all',this)">All</button>
-        <button class="filter-btn" onclick="filter('mouse',this)">Mouse & KB</button>
-        <button class="filter-btn" onclick="filter('headset',this)">Headsets</button>
-        <button class="filter-btn" onclick="filter('chair',this)">Chairs</button>
-        <button class="filter-btn" onclick="filter('monitor',this)">Monitors</button>
+        <button class="filter-btn" onclick="filter('laptop',this)">Laptops</button>
       </div>
     </div>
   </div>
@@ -407,14 +404,7 @@
 
 <script>
 const deals = [
-  { brand:"Razer", cat:"mouse", label:"Laptops", code:"GEAR15", discount:"Save up to 15% off Razer Refurbished Laptops", badge:"hot", url:"https://razer.a9yw.net/n4EZgM" },
-  { brand:"SteelSeries", cat:"headset", label:"Headsets", code:"STEEL20", discount:"20% off Arctis headset series", badge:"new", url:"https://steelseries.com" },
-  { brand:"Secretlab", cat:"chair", label:"Gaming Chairs", code:"DROP10", discount:"$10 off any chair model", badge:"limited", url:"https://secretlab.co" },
-  { brand:"ASUS ROG", cat:"monitor", label:"Monitors", code:"ROG25", discount:"25% off 144hz+ monitors", badge:"hot", url:"https://asus.com/rog" },
-  { brand:"Corsair", cat:"mouse", label:"Mouse & Keyboard", code:"COR12", discount:"12% off all keyboards", badge:"new", url:"https://corsair.com" },
-  { brand:"HyperX", cat:"headset", label:"Headsets", code:"HX18", discount:"18% off Cloud headset line", badge:"hot", url:"https://hyperx.com" },
-  { brand:"DXRacer", cat:"chair", label:"Gaming Chairs", code:"DXR15", discount:"15% off racing series chairs", badge:"limited", url:"https://dxracer.com" },
-  { brand:"LG UltraGear", cat:"monitor", label:"Monitors", code:"LGU30", discount:"30% off UltraGear monitors", badge:"hot", url:"https://lg.com/ultragear" },
+  { brand:"Razer", cat:"laptop", label:"Laptops", code:"GEAR15", discount:"Save up to 15% off Razer Refurbished Laptops", badge:"hot", url:"https://razer.a9yw.net/n4EZgM" },
 ];
 
 let active = 'all';
