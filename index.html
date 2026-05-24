@@ -390,18 +390,13 @@
 <main>
   <div class="section-header">
     <div class="section-title">// Active deals</div>
-    <div style="display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap;">
-      <div class="deal-count">Showing <span id="count">8</span> deals</div>
-      <div class="filters">
-        <button class="filter-btn active" onclick="filter('all',this)">All</button>
-        <button class="filter-btn" onclick="filter('laptop',this)">Laptops</button>
-        <button class="filter-btn" onclick="filter('mouse',this)">Mice</button>
-        <button class="filter-btn" onclick="filter('chair',this)">Accessories</button>
-      </div>
-    </div>
   </div>
+  <div class="grid" id="deals-grid"></div>
 
-  <div class="grid" id="grid"></div>
+  <div class="section-header" style="margin-top:3rem;">
+    <div class="section-title">// Hand-picked mice</div>
+  </div>
+  <div class="grid" id="mice-grid"></div>
 </main>
 
 <footer>
@@ -413,25 +408,17 @@
 const deals = [
   { brand:"Razer", cat:"laptop", label:"Laptops", code:"GEAR15", discount:"Save up to 15% off Razer Refurbished Laptops", badge:"hot", url:"https://razer.a9yw.net/n4EZgM?url=https://www.razer.com/shop/refurbished/refurb-laptops", img:"razer-laptops.jpg" },
   { brand:"Razer", cat:"chair", label:"Gaming Accessories", code:"", discount:"Razer Freyja - World's First HD Haptic Gaming Cushion", badge:"new", url:"https://razer.a9yw.net/c/7336422/2186808/10229", img:"freyja.jpg" },
-  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer DeathAdder V3 Pro - Most popular among CS2 pros", badge:"hot", url:"https://razer.a9yw.net/c/7336422/1421325/10229", img:"deathadder-v3-pro.jpg" },
-  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer DeathAdder V3 HyperSpeed - Best budget option", badge:"new", url:"https://razer.a9yw.net/c/7336422/2073332/10229", img:"deathadder-hyperspeed.jpg" },
-  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer Viper V3 Pro - Used by CS2 pro players", badge:"hot", url:"https://razer.a9yw.net/c/7336422/3809278/10229", img:"viper-v3-pro.jpg" },
-  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer Viper V3 HyperSpeed - Lightweight & fast", badge:"new", url:"https://razer.a9yw.net/c/7336422/1808308/10229", img:"viper-hyperspeed.jpg" },
 ];
 
-let active = 'all';
+const mice = [
+  { brand:"Razer", label:"DeathAdder V3 Pro", code:"", discount:"Most popular among CS2 pros", badge:"hot", url:"https://razer.a9yw.net/c/7336422/1421325/10229", img:"deathadder-v3-pro.jpg" },
+  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", discount:"Best budget option for CS2", badge:"new", url:"https://razer.a9yw.net/c/7336422/2073332/10229", img:"deathadder-hyperspeed.jpg" },
+  { brand:"Razer", label:"Viper V3 Pro", code:"", discount:"Ultra lightweight for pro play", badge:"hot", url:"https://razer.a9yw.net/c/7336422/3809278/10229", img:"viper-v3-pro.jpg" },
+  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", discount:"Lightweight & fast on a budget", badge:"new", url:"https://razer.a9yw.net/c/7336422/1808308/10229", img:"viper-hyperspeed.jpg" },
+];
 
-function filter(cat, btn) {
-  active = cat;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  render();
-}
-
-function render() {
-  const filtered = active === 'all' ? deals : deals.filter(d => d.cat === active);
-  document.getElementById('count').textContent = filtered.length;
-  document.getElementById('grid').innerHTML = filtered.map((d,i) => `
+function renderDeals() {
+  document.getElementById('deals-grid').innerHTML = deals.map((d,i) => `
     <div class="card">
       ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.brand}" loading="lazy">` : ''}
       <div class="card-top">
@@ -449,6 +436,25 @@ function render() {
   `).join('');
 }
 
+function renderMice() {
+  document.getElementById('mice-grid').innerHTML = mice.map((d,i) => `
+    <div class="card">
+      ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+      <div class="card-top">
+        <div class="brand">${d.label}</div>
+        <span class="badge badge-${d.badge}">${d.badge}</span>
+      </div>
+      <div class="category">${d.brand}</div>
+      <div class="discount-text">${d.discount}</div>
+      <div style="height:44px;"></div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')">View Product →</button>
+    </div>
+  `).join('');
+}
+
+renderDeals();
+renderMice();
+
 function copy(code, i, btn) {
   navigator.clipboard.writeText(code).catch(()=>{});
   btn.textContent = 'Copied!';
@@ -456,8 +462,6 @@ function copy(code, i, btn) {
   btn.style.color = '#4caf50';
   setTimeout(() => { btn.textContent = 'Copy'; btn.style.background=''; btn.style.color=''; }, 1500);
 }
-
-render();
 </script>
 </body>
 </html>
