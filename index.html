@@ -442,6 +442,7 @@
       <button class="filter-btn active" onclick="filterMice('all',this)">All</button>
       <button class="filter-btn" onclick="filterMice('razer',this)">Razer</button>
       <button class="filter-btn" onclick="filterMice('hyperx',this)">HyperX</button>
+      <button class="filter-btn" onclick="filterMice('benq',this)">BenQ Zowie</button>
     </div>
   </div>
   <div style="position:relative;">
@@ -491,6 +492,9 @@ const allMice = [
   { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","apex","r6s"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg", discount:"", original:"" },
   { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant","pubg","warzone"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg", discount:"14% OFF", original:"$69.99" },
   { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex","pubg"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99" },
+  { brand:"benq", label:"Zowie U2 Wireless", games:["cs2","valorant","r6s","pubg"], url:"https://amzn.to/4wMbIlv", img:"Zowie U2.jpg", discount:"", original:"" },
+  { brand:"benq", label:"Zowie FK2-DW", games:["cs2","valorant","apex","r6s"], url:"https://amzn.to/4fKhKNc", img:"BenQ Zowie FK2-DW.jpg", discount:"", original:"" },
+  { brand:"benq", label:"Zowie U2-DW", games:["cs2","valorant","apex","pubg"], url:"https://amzn.to/4dFAfA1", img:"BenQ Zowie U2-DW.jpg", discount:"", original:"" },
 ];
 
 const gameLogos = {
@@ -505,7 +509,7 @@ const gameLogos = {
 };
 
 const gameNames = { cs2:'CS2', valorant:'Valorant', dota2:'DOTA2', lol:'LoL', apex:'Apex', pubg:'PUBG', r6s:'R6S', warzone:'Warzone' };
-const brandNames = { razer:'Razer', hyperx:'HyperX' };
+const brandNames = { razer:'Razer', hyperx:'HyperX', benq:'BenQ Zowie' };
 
 let activeMiceBrand = 'all';
 
