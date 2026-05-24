@@ -485,11 +485,11 @@ const hyperx = [
 ];
 
 const allMice = [
-  { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg" },
-  { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg" },
-  { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg" },
-  { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg" },
-  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","dota2"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg" },
+  { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg", discount:"47% OFF — $79.99", original:"$149.99" },
+  { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg", discount:"15% OFF — $84.99", original:"$99.99" },
+  { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg", discount:"", original:"" },
+  { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg", discount:"14% OFF — $59.99", original:"$69.99" },
+  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","dota2"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF — $58.99", original:"$89.99" },
 ];
 
 const gameLogos = {
@@ -519,7 +519,10 @@ function renderMiceScroll() {
   const filtered = activeMiceBrand === 'all' ? allMice : allMice.filter(d => d.brand === activeMiceBrand);
   document.getElementById('mice-scroll').innerHTML = filtered.map((d,i) => `
     <div class="card" style="display:flex; flex-direction:column; min-width:260px; max-width:260px;">
-      ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+      <div style="position:relative;">
+        ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+        ${d.discount ? `<div style="position:absolute; top:10px; right:10px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
+      </div>
       <div class="card-top">
         <div class="brand">${d.label}</div>
       </div>
