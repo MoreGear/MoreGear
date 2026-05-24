@@ -412,9 +412,10 @@ const deals = [
 
 const mice = [
   { brand:"Razer", label:"DeathAdder V3 Pro", code:"", discount:"Most popular among CS2 pros", badge:"hot", url:"https://razer.a9yw.net/c/7336422/1421325/10229", img:"deathadder-v3-pro.jpg" },
-  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", discount:"Best budget option for CS2", badge:"new", url:"https://razer.a9yw.net/c/7336422/2073332/10229", img:"deathadder-hyperspeed.jpg" },
-  { brand:"Razer", label:"Viper V3 Pro", code:"", discount:"Ultra lightweight for pro play", badge:"hot", url:"https://razer.a9yw.net/c/7336422/3809278/10229", img:"viper-v3-pro.jpg" },
-  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", discount:"Lightweight & fast on a budget", badge:"new", url:"https://razer.a9yw.net/c/7336422/1808308/10229", img:"viper-hyperspeed.jpg" },
+  { brand:"Razer", label:"DeathAdder V3 Pro", code:"", discount:"Most popular among CS2 pros", badge:"", url:"https://razer.a9yw.net/c/7336422/1421325/10229", img:"deathadder-v3-pro.jpg" },
+  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", discount:"Best budget option for CS2", badge:"", url:"https://razer.a9yw.net/c/7336422/2073332/10229", img:"deathadder-hyperspeed.jpg" },
+  { brand:"Razer", label:"Viper V3 Pro", code:"", discount:"Ultra lightweight for pro play", badge:"", url:"https://razer.a9yw.net/c/7336422/3809278/10229", img:"viper-v3-pro.jpg" },
+  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", discount:"Lightweight & fast on a budget", badge:"", url:"https://razer.a9yw.net/c/7336422/1808308/10229", img:"viper-hyperspeed.jpg" },
 ];
 
 function renderDeals() {
@@ -442,7 +443,7 @@ function renderMice() {
       ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
       <div class="card-top">
         <div class="brand">${d.label}</div>
-        <span class="badge badge-${d.badge}">${d.badge}</span>
+        ${d.badge ? `<span class="badge badge-${d.badge}">${d.badge}</span>` : ''}
       </div>
       <div class="category">${d.brand}</div>
       <div class="discount-text">${d.discount}</div>
