@@ -262,6 +262,44 @@
   .game-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .game-logo { height:20px; width:auto; opacity:0.8; filter: brightness(0) invert(1); }
 
+  .mice-scroll {
+    display: flex;
+    gap: 1px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    border: 1px solid var(--border);
+    background: var(--border);
+  }
+  .mice-scroll::-webkit-scrollbar { display: none; }
+  .mice-scroll .card {
+    min-width: 260px;
+    max-width: 260px;
+    flex-shrink: 0;
+  }
+
+  .scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg2);
+    border: 1px solid var(--border-red);
+    color: var(--red);
+    width: 36px;
+    height: 36px;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    z-index: 2;
+  }
+  .scroll-btn:hover { background: var(--red); color: #fff; }
+  .scroll-left { left: -18px; }
+  .scroll-right { right: -18px; }
+
   .category {
     font-size: 12px;
     letter-spacing: 2px;
@@ -399,8 +437,17 @@
 
   <div class="section-header" style="margin-top:3rem;">
     <div class="section-title">// Hand-picked mice</div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterMice('all',this)">All</button>
+      <button class="filter-btn" onclick="filterMice('razer',this)">Razer</button>
+      <button class="filter-btn" onclick="filterMice('hyperx',this)">HyperX</button>
+    </div>
   </div>
-  <div class="grid" id="mice-grid"></div>
+  <div style="position:relative;">
+    <div class="mice-scroll" id="mice-scroll"></div>
+    <button class="scroll-btn scroll-left" onclick="scrollMice(-1)">&#8592;</button>
+    <button class="scroll-btn scroll-right" onclick="scrollMice(1)">&#8594;</button>
+  </div>
 </main>
 
 <footer>
@@ -412,13 +459,6 @@
 const deals = [
   { brand:"Razer", cat:"laptop", label:"Laptops", code:"GEAR15", discount:"Save up to 15% off Razer Refurbished Laptops", badge:"hot", url:"https://razer.a9yw.net/n4EZgM?url=https://www.razer.com/shop/refurbished/refurb-laptops", img:"razer-laptops.jpg" },
   { brand:"Razer", cat:"chair", label:"Gaming Accessories", code:"", discount:"Razer Freyja - World's First HD Haptic Gaming Cushion", badge:"new", url:"https://razer.a9yw.net/c/7336422/2186808/10229", img:"freyja.jpg" },
-];
-
-const mice = [
-  { brand:"Razer", label:"DeathAdder V3 Pro", code:"", games:["cs2","valorant","dota2"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg" },
-  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg" },
-  { brand:"Razer", label:"Viper V3 Pro", code:"", games:["cs2","valorant","dota2"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg" },
-  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg" },
 ];
 
 function renderDeals() {
@@ -440,6 +480,18 @@ function renderDeals() {
   `).join('');
 }
 
+const hyperx = [
+  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","dota2"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg" },
+];
+
+const allMice = [
+  { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg" },
+  { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg" },
+  { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","dota2"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg" },
+  { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg" },
+  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","dota2"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg" },
+];
+
 const gameLogos = {
   cs2: 'https://cdn.simpleicons.org/counterstrike',
   valorant: 'https://cdn.simpleicons.org/valorant',
@@ -447,15 +499,31 @@ const gameLogos = {
 };
 
 const gameNames = { cs2:'CS2', valorant:'Valorant', dota2:'DOTA2' };
+const brandNames = { razer:'Razer', hyperx:'HyperX' };
 
-function renderMice() {
-  document.getElementById('mice-grid').innerHTML = mice.map((d,i) => `
-    <div class="card" style="display:flex; flex-direction:column;">
+let activeMiceBrand = 'all';
+
+function filterMice(brand, btn) {
+  activeMiceBrand = brand;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMiceScroll();
+}
+
+function scrollMice(dir) {
+  const el = document.getElementById('mice-scroll');
+  el.scrollBy({ left: dir * 280, behavior: 'smooth' });
+}
+
+function renderMiceScroll() {
+  const filtered = activeMiceBrand === 'all' ? allMice : allMice.filter(d => d.brand === activeMiceBrand);
+  document.getElementById('mice-scroll').innerHTML = filtered.map((d,i) => `
+    <div class="card" style="display:flex; flex-direction:column; min-width:260px; max-width:260px;">
       ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
       <div class="card-top">
         <div class="brand">${d.label}</div>
       </div>
-      <div class="category">${d.brand}</div>
+      <div class="category">${brandNames[d.brand]}</div>
       <div class="game-label">Best for:</div>
       <div class="game-logos">
         ${d.games.map(g => `<img class="game-logo" src="${gameLogos[g]}" alt="${gameNames[g]}" title="${gameNames[g]}">`).join('')}
@@ -466,9 +534,6 @@ function renderMice() {
   `).join('');
 }
 
-renderDeals();
-renderMice();
-
 function copy(code, i, btn) {
   navigator.clipboard.writeText(code).catch(()=>{});
   btn.textContent = 'Copied!';
@@ -476,6 +541,9 @@ function copy(code, i, btn) {
   btn.style.color = '#4caf50';
   setTimeout(() => { btn.textContent = 'Copy'; btn.style.background=''; btn.style.color=''; }, 1500);
 }
+
+renderDeals();
+renderMiceScroll();
 </script>
 </body>
 </html>
