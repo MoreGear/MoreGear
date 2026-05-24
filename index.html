@@ -395,6 +395,7 @@
       <div class="filters">
         <button class="filter-btn active" onclick="filter('all',this)">All</button>
         <button class="filter-btn" onclick="filter('laptop',this)">Laptops</button>
+        <button class="filter-btn" onclick="filter('mouse',this)">Mice</button>
         <button class="filter-btn" onclick="filter('chair',this)">Accessories</button>
       </div>
     </div>
@@ -411,7 +412,11 @@
 <script>
 const deals = [
   { brand:"Razer", cat:"laptop", label:"Laptops", code:"GEAR15", discount:"Save up to 15% off Razer Refurbished Laptops", badge:"hot", url:"https://razer.a9yw.net/n4EZgM?url=https://www.razer.com/shop/refurbished/refurb-laptops", img:"razer-laptops.jpg" },
-  { brand:"Razer", cat:"chair", label:"Gaming Accessories", code:"MGFREYJA", discount:"Razer Freyja - World's First HD Haptic Gaming Cushion", badge:"new", url:"https://razer.a9yw.net/c/7336422/2186808/10229", img:"freyja.jpg" },
+  { brand:"Razer", cat:"chair", label:"Gaming Accessories", code:"", discount:"Razer Freyja - World's First HD Haptic Gaming Cushion", badge:"new", url:"https://razer.a9yw.net/c/7336422/2186808/10229", img:"freyja.jpg" },
+  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer DeathAdder V3 Pro - Most popular among CS2 pros", badge:"hot", url:"https://razer.a9yw.net/c/7336422/1421325/10229", img:"deathadder-v3-pro.jpg" },
+  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer DeathAdder V3 HyperSpeed - Best budget option", badge:"new", url:"https://razer.a9yw.net/c/7336422/2073332/10229", img:"deathadder-hyperspeed.jpg" },
+  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer Viper V3 Pro - Used by CS2 pro players", badge:"hot", url:"https://razer.a9yw.net/c/7336422/3809278/10229", img:"viper-v3-pro.jpg" },
+  { brand:"Razer", cat:"mouse", label:"Mouse", code:"", discount:"Razer Viper V3 HyperSpeed - Lightweight & fast", badge:"new", url:"https://razer.a9yw.net/c/7336422/1808308/10229", img:"viper-hyperspeed.jpg" },
 ];
 
 let active = 'all';
@@ -435,10 +440,10 @@ function render() {
       </div>
       <div class="category">${d.label}</div>
       <div class="discount-text">${d.discount}</div>
-      <div class="code-row">
+      ${d.code ? `<div class="code-row">
         <div class="code" id="c${i}">${d.code}</div>
         <button class="copy-btn" onclick="copy('${d.code}',${i},this)">Copy</button>
-      </div>
+      </div>` : '<div style="height:44px;"></div>'}
       <button class="visit-btn" onclick="window.open('${d.url}','_blank')">Visit Store →</button>
     </div>
   `).join('');
