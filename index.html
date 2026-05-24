@@ -521,7 +521,7 @@ function renderMiceScroll() {
     <div class="card" style="display:flex; flex-direction:column; min-width:260px; max-width:260px;">
       <div style="position:relative;">
         ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
-        ${d.discount ? `<div style="position:absolute; top:10px; right:10px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
+        ${d.discount ? `<div style="position:absolute; top:-18px; right:-18px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; z-index:1;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
       </div>
       <div class="card-top">
         <div class="brand">${d.label}</div>
