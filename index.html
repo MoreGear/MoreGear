@@ -258,7 +258,7 @@
   .badge-new { background: transparent; border: 1px solid var(--red); color: var(--red); }
   .badge-limited { background: #222; color: var(--muted); border: 1px solid var(--border); }
 
-  .game-label { font-family: var(--font-display); font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+  .game-label { font-family: var(--font-display); font-size:13px; font-weight:700; letter-spacing:2px; color:var(--text); text-transform:uppercase; margin-bottom:4px; }
   .game-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .game-logo { height:20px; width:auto; opacity:0.8; filter: brightness(0) invert(1); }
 
@@ -456,7 +456,7 @@ function renderMice() {
         <div class="brand">${d.label}</div>
       </div>
       <div class="category">${d.brand}</div>
-      <div class="game-label">Best for</div>
+      <div class="game-label">Best for:</div>
       <div class="game-logos">
         ${d.games.map(g => `<img class="game-logo" src="${gameLogos[g]}" alt="${gameNames[g]}" title="${gameNames[g]}">`).join('')}
       </div>
