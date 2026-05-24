@@ -258,6 +258,10 @@
   .badge-new { background: transparent; border: 1px solid var(--red); color: var(--red); }
   .badge-limited { background: #222; color: var(--muted); border: 1px solid var(--border); }
 
+  .game-label { font-family: var(--font-display); font-size:11px; letter-spacing:2px; color:var(--muted); text-transform:uppercase; margin-bottom:4px; }
+  .game-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .game-logo { height:20px; width:auto; opacity:0.8; filter: brightness(0) invert(1); }
+
   .category {
     font-size: 12px;
     letter-spacing: 2px;
@@ -411,10 +415,10 @@ const deals = [
 ];
 
 const mice = [
-  { brand:"Razer", label:"DeathAdder V3 Pro", code:"", discount:"Most popular among CS2 pros", badge:"", url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg" },
-  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", discount:"Best budget option for CS2", badge:"", url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg" },
-  { brand:"Razer", label:"Viper V3 Pro", code:"", discount:"Ultra lightweight for pro play", badge:"", url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg" },
-  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", discount:"Lightweight & fast on a budget", badge:"", url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg" },
+  { brand:"Razer", label:"DeathAdder V3 Pro", code:"", games:["cs2","valorant","dota2"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg" },
+  { brand:"Razer", label:"DeathAdder V3 HyperSpeed", code:"", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg" },
+  { brand:"Razer", label:"Viper V3 Pro", code:"", games:["cs2","valorant","dota2"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg" },
+  { brand:"Razer", label:"Viper V3 HyperSpeed", code:"", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg" },
 ];
 
 function renderDeals() {
@@ -436,18 +440,28 @@ function renderDeals() {
   `).join('');
 }
 
+const gameLogos = {
+  cs2: 'https://cdn.simpleicons.org/counterstrike',
+  valorant: 'https://cdn.simpleicons.org/valorant',
+  dota2: 'https://cdn.simpleicons.org/dota2',
+};
+
+const gameNames = { cs2:'CS2', valorant:'Valorant', dota2:'DOTA2' };
+
 function renderMice() {
   document.getElementById('mice-grid').innerHTML = mice.map((d,i) => `
     <div class="card" style="display:flex; flex-direction:column;">
       ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
       <div class="card-top">
         <div class="brand">${d.label}</div>
-        ${d.badge ? `<span class="badge badge-${d.badge}">${d.badge}</span>` : ''}
       </div>
       <div class="category">${d.brand}</div>
-      <div class="discount-text" style="flex:1;">${d.discount}</div>
-      <div style="height:44px;"></div>
-      <button class="visit-btn" onclick="window.open('${d.url}','_blank')">View Product →</button>
+      <div class="game-label">Best for</div>
+      <div class="game-logos">
+        ${d.games.map(g => `<img class="game-logo" src="${gameLogos[g]}" alt="${gameNames[g]}" title="${gameNames[g]}">`).join('')}
+      </div>
+      <div style="flex:1; min-height:12px;"></div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
     </div>
   `).join('');
 }
