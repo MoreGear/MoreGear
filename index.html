@@ -261,6 +261,7 @@
   .game-label { font-family: var(--font-display); font-size:13px; font-weight:700; letter-spacing:2px; color:var(--text); text-transform:uppercase; margin-bottom:4px; }
   .game-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .game-logo { height:20px; width:auto; opacity:0.8; filter: brightness(0) invert(1); }
+  .game-tag { font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:1px; color:#fff; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); padding:3px 6px; border-radius:2px; }
 
   .mice-scroll {
     display: flex;
@@ -493,16 +494,16 @@ const allMice = [
 ];
 
 const gameLogos = {
-  cs2: 'https://cdn.simpleicons.org/counterstrike',
-  valorant: 'https://cdn.simpleicons.org/valorant',
-  dota2: 'https://cdn.simpleicons.org/dota2',
-  lol: 'https://cdn.simpleicons.org/leagueoflegends',
-  fortnite: 'https://cdn.simpleicons.org/fortnite',
-  apex: 'https://cdn.simpleicons.org/apexlegends',
-  pubg: 'https://cdn.simpleicons.org/pubg',
-  overwatch: 'https://cdn.simpleicons.org/overwatch',
-  r6s: 'https://cdn.simpleicons.org/ubisoft',
-  warzone: 'https://cdn.simpleicons.org/activision',
+  cs2: { type:'img', src:'https://cdn.simpleicons.org/counterstrike' },
+  valorant: { type:'img', src:'https://cdn.simpleicons.org/valorant' },
+  dota2: { type:'img', src:'https://cdn.simpleicons.org/dota2' },
+  lol: { type:'img', src:'https://cdn.simpleicons.org/leagueoflegends' },
+  fortnite: { type:'txt', label:'FN' },
+  apex: { type:'txt', label:'AL' },
+  pubg: { type:'txt', label:'PG' },
+  overwatch: { type:'txt', label:'OW' },
+  r6s: { type:'txt', label:'R6' },
+  warzone: { type:'txt', label:'WZ' },
 };
 
 const gameNames = { cs2:'CS2', valorant:'Valorant', dota2:'DOTA2', lol:'LoL', fortnite:'Fortnite', apex:'Apex', pubg:'PUBG', overwatch:'Overwatch', r6s:'R6S', warzone:'Warzone' };
@@ -536,7 +537,10 @@ function renderMiceScroll() {
       <div class="category">${brandNames[d.brand]}</div>
       <div class="game-label">Best for:</div>
       <div class="game-logos">
-        ${d.games.map(g => `<img class="game-logo" src="${gameLogos[g]}" alt="${gameNames[g]}" title="${gameNames[g]}">`).join('')}
+        ${d.games.map(g => gameLogos[g].type === 'img' 
+          ? `<img class="game-logo" src="${gameLogos[g].src}" alt="${gameNames[g]}" title="${gameNames[g]}">` 
+          : `<span class="game-tag" title="${gameNames[g]}">${gameLogos[g].label}</span>`
+        ).join('')}
       </div>
       <div style="flex:1; min-height:12px;"></div>
       <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
