@@ -528,10 +528,6 @@ function renderDeals() {
   `).join('');
 }
 
-const hyperx = [
-  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","dota2"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg" },
-];
-
 const allMice = [
   { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99", topPick:true, pairWith:"pad-hyperx", pairLabel:"HyperX FURY S" },
   { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg", discount:"47% OFF", original:"$149.99", pairWith:"pad-razer", pairLabel:"Razer Gigantus V2" },
@@ -607,9 +603,6 @@ function copy(code, i, btn) {
   btn.style.color = '#4caf50';
   setTimeout(() => { btn.textContent = 'Copy'; btn.style.background=''; btn.style.color=''; }, 1500);
 }
-
-renderDeals();
-renderMiceScroll();
 
 const allHeadsets = [
   { brand:"hyperx", label:"Cloud Alpha", url:"https://amzn.to/4dvjbhk", img:"Cloud-Alpha.webp", discount:"30% OFF", topPick:true },
@@ -687,6 +680,10 @@ function pairWith(padId) {
   }, 600);
 }
 
+renderDeals();
+renderMiceScroll();
+renderHeadsets();
 renderPads();
+</script>
 </body>
 </html>
