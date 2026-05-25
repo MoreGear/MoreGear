@@ -573,10 +573,11 @@ function renderMiceScroll() {
         ${d.discount ? `<div style="position:absolute; top:-18px; right:-18px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; z-index:1;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
       </div>
       <div class="card-top">
-        <div class="brand">${d.label}</div>
-        ${d.topPick ? `<span style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:2px; background:linear-gradient(135deg,#BF953F,#FCF6BA,#B38728,#FBF5B7,#AA771C); color:#000; padding:4px 10px; border-radius:1px; text-transform:uppercase; box-shadow:0 2px 8px rgba(191,149,63,0.4);">★ Top Pick</span>` : ''}
+        <div class="brand" style="min-height:48px;">${d.label}</div>
+        ${d.topPick ? `<span style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:2px; background:linear-gradient(135deg,#BF953F,#FCF6BA,#B38728,#FBF5B7,#AA771C); color:#000; padding:4px 10px; border-radius:1px; text-transform:uppercase; box-shadow:0 2px 8px rgba(191,149,63,0.4); flex-shrink:0;">★ Top Pick</span>` : ''}
       </div>
       <div class="category">${brandNames[d.brand]}</div>
+      <div class="game-label">Best for:</div>
       <div class="game-logos">
         ${d.games.map(g => gameLogos[g].type === 'img' 
           ? `<img class="game-logo" src="${gameLogos[g].src}" alt="${gameNames[g]}" title="${gameNames[g]}">` 
