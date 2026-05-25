@@ -702,9 +702,9 @@ renderHeadsets();
 renderPads();
 
 const allKeyboards = [
+  { brand:"razer", label:"Huntsman V3 Pro", url:"https://amzn.to/49nxNN7", img:"razer-huntsman-v3-pro-hero-desktop-v3.webp", discount:"23% OFF", topPick:true },
   { brand:"logitech", label:"PRO X TKL Rapid", url:"https://amzn.to/3RuNcFl", img:"Pro-x-TKL.jpg", discount:"19% OFF" },
   { brand:"logitech", label:"PRO X", url:"https://amzn.to/4f7aBXi", img:"pro-x-keyboard.jpeg", discount:"" },
-  { brand:"razer", label:"Huntsman V3 Pro", url:"https://amzn.to/49nxNN7", img:"razer-huntsman-v3-pro-hero-desktop-v3.webp", discount:"23% OFF" },
   { brand:"hyperx", label:"Alloy Origins", url:"https://amzn.to/49SUHw1", img:"HX-alloy-origins.jpg", discount:"" },
   { brand:"corsair", label:"K70 PRO TKL", url:"https://amzn.to/3Pze32t", img:"K70_PRO_TKL.webp", discount:"29% OFF" },
 ];
@@ -734,6 +734,7 @@ function renderKeyboards() {
       </div>
       <div class="card-top">
         <div class="brand" style="min-height:48px;">${d.label}</div>
+        ${d.topPick ? `<span style="font-family:var(--font-display); font-size:11px; font-weight:700; letter-spacing:2px; background:linear-gradient(135deg,#BF953F,#FCF6BA,#B38728,#FBF5B7,#AA771C); color:#000; padding:4px 10px; border-radius:1px; text-transform:uppercase; box-shadow:0 2px 8px rgba(191,149,63,0.4); flex-shrink:0;">★ Top Pick</span>` : ''}
       </div>
       <div class="category">${keyboardBrandNames[d.brand]}</div>
       <div style="flex:1; min-height:12px;"></div>
