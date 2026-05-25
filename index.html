@@ -466,13 +466,10 @@
   <div class="page-tabs">
     <button class="page-tab active" onclick="switchTab('pro', this)">Pro Picks</button>
     <button class="page-tab" onclick="switchTab('budget', this)">Value Picks</button>
+    <button class="page-tab" onclick="switchTab('promo', this)">Promo Codes</button>
   </div>
 
   <div class="tab-content active" id="tab-pro">
-    <div class="section-header">
-      <div class="section-title">// Deals & Promo Codes</div>
-    </div>
-    <div class="grid" id="deals-grid"></div>
 
   <div class="section-header" style="margin-top:3rem;">
     <div class="section-title">// Hand-picked mice</div>
@@ -532,6 +529,13 @@
       <div style="font-family:var(--font-display); font-size:16px; letter-spacing:4px; color:var(--muted); text-transform:uppercase;">// Coming Soon</div>
       <p style="color:var(--muted); margin-top:1rem; font-size:15px;">Budget picks are being curated. Check back soon!</p>
     </div>
+  </div>
+
+  <div class="tab-content" id="tab-promo">
+    <div class="section-header" style="margin-top:1rem;">
+      <div class="section-title">// Deals & Promo Codes</div>
+    </div>
+    <div class="grid" id="deals-grid"></div>
   </div>
 </main>
 
