@@ -274,8 +274,8 @@
   }
   .mice-scroll::-webkit-scrollbar { display: none; }
   .mice-scroll .card {
-    min-width: 260px;
-    max-width: 260px;
+    min-width: calc(25% - 1px);
+    max-width: calc(25% - 1px);
     flex-shrink: 0;
   }
 
@@ -552,7 +552,7 @@ function scrollMice(dir) {
 function renderMiceScroll() {
   const filtered = activeMiceBrand === 'all' ? allMice : allMice.filter(d => d.brand === activeMiceBrand);
   document.getElementById('mice-scroll').innerHTML = filtered.map((d,i) => `
-    <div class="card" style="display:flex; flex-direction:column; min-width:260px; max-width:260px;">
+    <div class="card" style="display:flex; flex-direction:column; min-width:calc(25% - 1px); max-width:calc(25% - 1px);">
       <div style="position:relative;">
         ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
         ${d.discount ? `<div style="position:absolute; top:-18px; right:-18px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; z-index:1;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
