@@ -496,6 +496,22 @@
     <div class="section-title">// Mouse pads</div>
   </div>
   <div class="grid" id="pads-grid"></div>
+
+  <div class="section-header" style="margin-top:3rem;">
+    <div class="section-title">// Hand-picked keyboards</div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterKeyboards('all',this)">All</button>
+      <button class="filter-btn" onclick="filterKeyboards('logitech',this)">Logitech G</button>
+      <button class="filter-btn" onclick="filterKeyboards('razer',this)">Razer</button>
+      <button class="filter-btn" onclick="filterKeyboards('hyperx',this)">HyperX</button>
+      <button class="filter-btn" onclick="filterKeyboards('corsair',this)">Corsair</button>
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="mice-scroll" id="keyboards-scroll"></div>
+    <button class="scroll-btn scroll-left" onclick="scrollKeyboards(-1)">&#8592;</button>
+    <button class="scroll-btn scroll-right" onclick="scrollKeyboards(1)">&#8594;</button>
+  </div>
 </main>
 
 <footer>
@@ -684,6 +700,48 @@ renderDeals();
 renderMiceScroll();
 renderHeadsets();
 renderPads();
+renderKeyboards();
+
+const allKeyboards = [
+  { brand:"logitech", label:"PRO X TKL Rapid", url:"https://amzn.to/3RuNcFl", img:"Pro-x-TKL.jpg", discount:"19% OFF" },
+  { brand:"logitech", label:"PRO X", url:"https://amzn.to/4f7aBXi", img:"pro-x-keyboard.jpeg", discount:"" },
+  { brand:"razer", label:"Huntsman V3 Pro", url:"https://amzn.to/49nxNN7", img:"razer-huntsman-v3-pro-hero-desktop-v3.webp", discount:"23% OFF" },
+  { brand:"hyperx", label:"Alloy Origins", url:"https://amzn.to/49SUHw1", img:"HX-alloy-origins.jpg", discount:"" },
+  { brand:"corsair", label:"K70 PRO TKL", url:"https://amzn.to/3Pze32t", img:"K70_PRO_TKL.webp", discount:"29% OFF" },
+];
+
+const keyboardBrandNames = { logitech:'Logitech G', razer:'Razer', hyperx:'HyperX', corsair:'Corsair' };
+let activeKeyboardBrand = 'all';
+
+function filterKeyboards(brand, btn) {
+  activeKeyboardBrand = brand;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderKeyboards();
+}
+
+function scrollKeyboards(dir) {
+  const el = document.getElementById('keyboards-scroll');
+  el.scrollBy({ left: dir * 280, behavior: 'smooth' });
+}
+
+function renderKeyboards() {
+  const filtered = activeKeyboardBrand === 'all' ? allKeyboards : allKeyboards.filter(d => d.brand === activeKeyboardBrand);
+  document.getElementById('keyboards-scroll').innerHTML = filtered.map((d,i) => `
+    <div class="card" style="display:flex; flex-direction:column; min-width:calc(25% - 1px); max-width:calc(25% - 1px);">
+      <div style="position:relative;">
+        ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+        ${d.discount ? `<div style="position:absolute; top:-18px; right:-18px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; z-index:1;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
+      </div>
+      <div class="card-top">
+        <div class="brand" style="min-height:48px;">${d.label}</div>
+      </div>
+      <div class="category">${keyboardBrandNames[d.brand]}</div>
+      <div style="flex:1; min-height:12px;"></div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
+    </div>
+  `).join('');
+}
 </script>
 </body>
 </html>
