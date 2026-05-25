@@ -528,7 +528,7 @@ const allMice = [
   { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg", discount:"15% OFF", original:"$99.99" },
   { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg", discount:"", original:"" },
   { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg", discount:"14% OFF", original:"$69.99" },
-  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99" },
+  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99", topPick:true },
   { brand:"benq", label:"Zowie U2 Wireless", games:["cs2","valorant"], url:"https://amzn.to/4wMbIlv", img:"zowie-u2.jpg", discount:"", original:"" },
   { brand:"benq", label:"Zowie FK2-DW", games:["cs2","r6s"], url:"https://amzn.to/4fKhKNc", img:"benq-fk2-dw.jpg", discount:"6% OFF", original:"$159.99" },
   { brand:"logitech", label:"PRO X Superlight 2", games:["cs2","valorant","apex"], url:"https://amzn.to/4nR3ch1", img:"logitech-superlight-2.webp", discount:"6% OFF", original:"" },
@@ -574,9 +574,9 @@ function renderMiceScroll() {
       </div>
       <div class="card-top">
         <div class="brand">${d.label}</div>
+        ${d.topPick ? `<span style="font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:1px; background:#FFD700; color:#000; padding:3px 8px; border-radius:1px;">TOP PICK</span>` : ''}
       </div>
       <div class="category">${brandNames[d.brand]}</div>
-      <div class="game-label">Best for:</div>
       <div class="game-logos">
         ${d.games.map(g => gameLogos[g].type === 'img' 
           ? `<img class="game-logo" src="${gameLogos[g].src}" alt="${gameNames[g]}" title="${gameNames[g]}">` 
@@ -604,7 +604,7 @@ const allHeadsets = [
   { brand:"logitech", label:"PRO X 2 Lightspeed", url:"https://amzn.to/4wKrsFy", img:"Logitech-G-PRO-X-2-LIGHTSPEED.avif", discount:"18% OFF" },
   { brand:"logitech", label:"PRO X", url:"https://amzn.to/4utCPjv", img:"LogitechGProX.webp", discount:"8% OFF" },
   { brand:"razer", label:"BlackShark V3 Pro", url:"https://amzn.to/4wJOIUh", img:"razer-blackshark-v3-pro.webp", discount:"" },
-  { brand:"hyperx", label:"Cloud Alpha", url:"https://amzn.to/4dvjbhk", img:"Cloud-Alpha.webp", discount:"30% OFF" },
+  { brand:"hyperx", label:"Cloud Alpha", url:"https://amzn.to/4dvjbhk", img:"Cloud-Alpha.webp", discount:"30% OFF", topPick:true },
   { brand:"hyperx", label:"Cloud III", url:"https://amzn.to/4nMLPOl", img:"HyperX-Cloud-III.webp", discount:"42% OFF" },
   { brand:"hyperx", label:"Cloud II", url:"https://amzn.to/4f68qDk", img:"hyperx-cloud-ii.webp", discount:"25% OFF" },
 ];
@@ -634,6 +634,7 @@ function renderHeadsets() {
       </div>
       <div class="card-top">
         <div class="brand">${d.label}</div>
+        ${d.topPick ? `<span style="font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:1px; background:#FFD700; color:#000; padding:3px 8px; border-radius:1px;">TOP PICK</span>` : ''}
       </div>
       <div class="category">${headsetBrandNames[d.brand]}</div>
       <div style="flex:1; min-height:12px;"></div>
