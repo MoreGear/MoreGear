@@ -472,6 +472,21 @@
     <button class="scroll-btn scroll-left" onclick="scrollMice(-1)">&#8592;</button>
     <button class="scroll-btn scroll-right" onclick="scrollMice(1)">&#8594;</button>
   </div>
+
+  <div class="section-header" style="margin-top:3rem;">
+    <div class="section-title">// Hand-picked headsets</div>
+    <div class="filters">
+      <button class="filter-btn active" onclick="filterHeadsets('all',this)">All</button>
+      <button class="filter-btn" onclick="filterHeadsets('logitech',this)">Logitech G</button>
+      <button class="filter-btn" onclick="filterHeadsets('razer',this)">Razer</button>
+      <button class="filter-btn" onclick="filterHeadsets('hyperx',this)">HyperX</button>
+    </div>
+  </div>
+  <div style="position:relative;">
+    <div class="mice-scroll" id="headsets-scroll"></div>
+    <button class="scroll-btn scroll-left" onclick="scrollHeadsets(-1)">&#8592;</button>
+    <button class="scroll-btn scroll-right" onclick="scrollHeadsets(1)">&#8594;</button>
+  </div>
 </main>
 
 <footer>
@@ -584,6 +599,49 @@ function copy(code, i, btn) {
 
 renderDeals();
 renderMiceScroll();
+renderHeadsets();
+
+const allHeadsets = [
+  { brand:"logitech", label:"PRO X 2 Lightspeed", url:"https://amzn.to/4wKrsFy", img:"Logitech-G-PRO-X-2-LIGHTSPEED.avif", discount:"18% OFF" },
+  { brand:"logitech", label:"PRO X", url:"https://amzn.to/4utCPjv", img:"LogitechGProX.webp", discount:"8% OFF" },
+  { brand:"razer", label:"BlackShark V3 Pro", url:"https://amzn.to/4wJOIUh", img:"razer-blackshark-v3-pro.webp", discount:"" },
+  { brand:"hyperx", label:"Cloud Alpha", url:"https://amzn.to/4dvjbhk", img:"Cloud-Alpha.webp", discount:"30% OFF" },
+  { brand:"hyperx", label:"Cloud III", url:"https://amzn.to/4nMLPOl", img:"HyperX-Cloud-III.webp", discount:"42% OFF" },
+  { brand:"hyperx", label:"Cloud II", url:"https://amzn.to/4f68qDk", img:"hyperx-cloud-ii.webp", discount:"25% OFF" },
+];
+
+const headsetBrandNames = { logitech:'Logitech G', razer:'Razer', hyperx:'HyperX' };
+let activeHeadsetBrand = 'all';
+
+function filterHeadsets(brand, btn) {
+  activeHeadsetBrand = brand;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderHeadsets();
+}
+
+function scrollHeadsets(dir) {
+  const el = document.getElementById('headsets-scroll');
+  el.scrollBy({ left: dir * 280, behavior: 'smooth' });
+}
+
+function renderHeadsets() {
+  const filtered = activeHeadsetBrand === 'all' ? allHeadsets : allHeadsets.filter(d => d.brand === activeHeadsetBrand);
+  document.getElementById('headsets-scroll').innerHTML = filtered.map((d,i) => `
+    <div class="card" style="display:flex; flex-direction:column; min-width:calc(25% - 1px); max-width:calc(25% - 1px);">
+      <div style="position:relative;">
+        ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+        ${d.discount ? `<div style="position:absolute; top:-18px; right:-18px; background:var(--red); color:#fff; font-family:var(--font-display); font-size:13px; font-weight:700; width:52px; height:52px; border-radius:50%; display:flex; align-items:center; justify-content:center; letter-spacing:0.5px; z-index:1;">-${d.discount.split('%')[0].replace('-','').trim()}%</div>` : ''}
+      </div>
+      <div class="card-top">
+        <div class="brand">${d.label}</div>
+      </div>
+      <div class="category">${headsetBrandNames[d.brand]}</div>
+      <div style="flex:1; min-height:12px;"></div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
+    </div>
+  `).join('');
+}
 </script>
 </body>
 </html>
