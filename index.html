@@ -262,6 +262,10 @@
   .game-logos { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .game-logo { height:20px; width:auto; opacity:0.8; filter: brightness(0) invert(1); }
   .game-tag { font-family:var(--font-display); font-size:10px; font-weight:700; letter-spacing:1px; color:#fff; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); padding:3px 6px; border-radius:2px; }
+  .pair-link { font-family:var(--font-display); font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); cursor:pointer; border:none; background:none; padding:0; margin-top:4px; text-decoration:none; }
+  .pair-link:hover { color:var(--red); }
+  @keyframes padGlow { 0%{box-shadow:0 0 0 0 rgba(232,0,26,0)} 30%{box-shadow:0 0 30px 8px rgba(232,0,26,0.6)} 70%{box-shadow:0 0 30px 8px rgba(232,0,26,0.6)} 100%{box-shadow:0 0 0 0 rgba(232,0,26,0)} }
+  .pad-glow { animation: padGlow 1.5s ease; border-color: var(--red) !important; }
 
   .mice-scroll {
     display: flex;
@@ -487,6 +491,11 @@
     <button class="scroll-btn scroll-left" onclick="scrollHeadsets(-1)">&#8592;</button>
     <button class="scroll-btn scroll-right" onclick="scrollHeadsets(1)">&#8594;</button>
   </div>
+
+  <div class="section-header" style="margin-top:3rem;">
+    <div class="section-title">// Mouse pads</div>
+  </div>
+  <div class="grid" id="pads-grid"></div>
 </main>
 
 <footer>
@@ -524,16 +533,16 @@ const hyperx = [
 ];
 
 const allMice = [
-  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99", topPick:true },
-  { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg", discount:"47% OFF", original:"$149.99" },
-  { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg", discount:"15% OFF", original:"$99.99" },
-  { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg", discount:"", original:"" },
-  { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg", discount:"14% OFF", original:"$69.99" },
-  { brand:"benq", label:"Zowie U2 Wireless", games:["cs2","valorant"], url:"https://amzn.to/4wMbIlv", img:"zowie-u2.jpg", discount:"", original:"" },
-  { brand:"benq", label:"Zowie FK2-DW", games:["cs2","r6s"], url:"https://amzn.to/4fKhKNc", img:"benq-fk2-dw.jpg", discount:"6% OFF", original:"$159.99" },
-  { brand:"logitech", label:"PRO X Superlight 2", games:["cs2","valorant","apex"], url:"https://amzn.to/4nR3ch1", img:"logitech-superlight-2.webp", discount:"6% OFF", original:"" },
-  { brand:"logitech", label:"PRO X Superlight", games:["cs2","valorant"], url:"https://amzn.to/4f24e7z", img:"Superlight.jpg", discount:"", original:"" },
-  { brand:"logitech", label:"PRO X Superstrike", games:["cs2","valorant","apex"], url:"https://amzn.to/3RYGiIw", img:"pro-x2.jpg", discount:"", original:"" },
+  { brand:"hyperx", label:"Pulsefire Haste 2 Wireless", games:["cs2","valorant","apex"], url:"https://amzn.to/4fBYtgW", img:"hyperx-haste2-wireless.jpg", discount:"34% OFF", original:"$89.99", topPick:true, pairWith:"pad-hyperx", pairLabel:"HyperX FURY S" },
+  { brand:"razer", label:"DeathAdder V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/43sohVw", img:"deathadder-v3-pro.jpg", discount:"47% OFF", original:"$149.99", pairWith:"pad-razer", pairLabel:"Razer Gigantus V2" },
+  { brand:"razer", label:"DeathAdder V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4v7Ug9n", img:"deathadder-hyperspeed.jpg", discount:"15% OFF", original:"$99.99", pairWith:"pad-razer", pairLabel:"Razer Gigantus V2" },
+  { brand:"razer", label:"Viper V3 Pro", games:["cs2","valorant","apex"], url:"https://amzn.to/4uq7MFl", img:"viper-v3-pro.jpg", discount:"", original:"", pairWith:"pad-razer", pairLabel:"Razer Gigantus V2" },
+  { brand:"razer", label:"Viper V3 HyperSpeed", games:["cs2","valorant"], url:"https://amzn.to/4wNlILk", img:"viper-hyperspeed.jpg", discount:"14% OFF", original:"$69.99", pairWith:"pad-razer", pairLabel:"Razer Gigantus V2" },
+  { brand:"benq", label:"Zowie U2 Wireless", games:["cs2","valorant"], url:"https://amzn.to/4wMbIlv", img:"zowie-u2.jpg", discount:"", original:"", pairWith:"pad-zowie", pairLabel:"Zowie G-SR" },
+  { brand:"benq", label:"Zowie FK2-DW", games:["cs2","r6s"], url:"https://amzn.to/4fKhKNc", img:"benq-fk2-dw.jpg", discount:"6% OFF", original:"$159.99", pairWith:"pad-zowie", pairLabel:"Zowie G-SR" },
+  { brand:"logitech", label:"PRO X Superlight 2", games:["cs2","valorant","apex"], url:"https://amzn.to/4nR3ch1", img:"logitech-superlight-2.webp", discount:"6% OFF", original:"", pairWith:"pad-logitech", pairLabel:"Logitech G640" },
+  { brand:"logitech", label:"PRO X Superlight", games:["cs2","valorant"], url:"https://amzn.to/4f24e7z", img:"Superlight.jpg", discount:"", original:"", pairWith:"pad-logitech", pairLabel:"Logitech G640" },
+  { brand:"logitech", label:"PRO X Superstrike", games:["cs2","valorant","apex"], url:"https://amzn.to/3RYGiIw", img:"pro-x2.jpg", discount:"", original:"", pairWith:"pad-logitech", pairLabel:"Logitech G640" },
 ];
 
 const gameLogos = {
@@ -585,7 +594,8 @@ function renderMiceScroll() {
         ).join('')}
       </div>
       <div style="flex:1; min-height:12px;"></div>
-      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
+      ${d.pairWith ? `<button class="pair-link" onclick="pairWith('${d.pairWith}')">⤵ Pair with ${d.pairLabel}</button>` : ''}
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:8px;">View Product →</button>
     </div>
   `).join('');
 }
@@ -645,6 +655,38 @@ function renderHeadsets() {
 }
 
 renderHeadsets();
-</script>
+
+const allPads = [
+  { id:"pad-zowie", brand:"BenQ Zowie", label:"G-SR", url:"https://amzn.to/4a6CKtU", img:"Zowie-G-SR.avif" },
+  { id:"pad-razer", brand:"Razer", label:"Gigantus V2", url:"https://amzn.to/42PaA2R", img:"razer-gigantus-v2.png" },
+  { id:"pad-logitech", brand:"Logitech G", label:"G640", url:"https://amzn.to/4uO1rUF", img:"g640.png" },
+  { id:"pad-hyperx", brand:"HyperX", label:"FURY S", url:"https://amzn.to/43sQCLq", img:"Hyperx-fury-s.jpg" },
+];
+
+function renderPads() {
+  document.getElementById('pads-grid').innerHTML = allPads.map(d => `
+    <div class="card" id="${d.id}" style="display:flex; flex-direction:column; transition: box-shadow 0.3s, border-color 0.3s;">
+      ${d.img ? `<img class="card-img" src="${d.img}" alt="${d.label}" loading="lazy">` : ''}
+      <div class="card-top">
+        <div class="brand">${d.label}</div>
+      </div>
+      <div class="category">${d.brand}</div>
+      <div style="flex:1; min-height:12px;"></div>
+      <button class="visit-btn" onclick="window.open('${d.url}','_blank')" style="margin-top:12px;">View Product →</button>
+    </div>
+  `).join('');
+}
+
+function pairWith(padId) {
+  const el = document.getElementById(padId);
+  if (!el) return;
+  el.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => {
+    el.classList.add('pad-glow');
+    setTimeout(() => el.classList.remove('pad-glow'), 1500);
+  }, 600);
+}
+
+renderPads();
 </body>
 </html>
