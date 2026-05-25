@@ -433,6 +433,13 @@
   }
 
   .deal-count span { color: var(--red); font-weight: 700; }
+
+  .page-tabs { display:flex; gap:2px; margin-bottom:2rem; border-bottom:1px solid var(--border); }
+  .page-tab { font-family:var(--font-display); font-size:15px; font-weight:700; letter-spacing:3px; text-transform:uppercase; padding:12px 28px; border:none; background:transparent; color:var(--muted); cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-1px; transition:all 0.15s; }
+  .page-tab.active { color:#fff; border-bottom-color:var(--red); }
+  .page-tab:hover { color:var(--text); }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
 </style>
 </head>
 <body>
@@ -456,10 +463,16 @@
 </div>
 
 <main>
-  <div class="section-header">
-    <div class="section-title">// Deals & Promo Codes</div>
+  <div class="page-tabs">
+    <button class="page-tab active" onclick="switchTab('pro', this)">Pro Picks</button>
+    <button class="page-tab" onclick="switchTab('budget', this)">Value Picks</button>
   </div>
-  <div class="grid" id="deals-grid"></div>
+
+  <div class="tab-content active" id="tab-pro">
+    <div class="section-header">
+      <div class="section-title">// Deals & Promo Codes</div>
+    </div>
+    <div class="grid" id="deals-grid"></div>
 
   <div class="section-header" style="margin-top:3rem;">
     <div class="section-title">// Hand-picked mice</div>
@@ -511,6 +524,14 @@
     <div class="mice-scroll" id="keyboards-scroll"></div>
     <button class="scroll-btn scroll-left" onclick="scrollKeyboards(-1)">&#8592;</button>
     <button class="scroll-btn scroll-right" onclick="scrollKeyboards(1)">&#8594;</button>
+  </div>
+  </div>
+
+  <div class="tab-content" id="tab-budget">
+    <div style="padding:4rem 0; text-align:center;">
+      <div style="font-family:var(--font-display); font-size:16px; letter-spacing:4px; color:var(--muted); text-transform:uppercase;">// Coming Soon</div>
+      <p style="color:var(--muted); margin-top:1rem; font-size:15px;">Budget picks are being curated. Check back soon!</p>
+    </div>
   </div>
 </main>
 
@@ -748,6 +769,13 @@ renderMiceScroll();
 renderHeadsets();
 renderPads();
 renderKeyboards();
+
+function switchTab(tab, btn) {
+  document.querySelectorAll('.page-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
 </script>
 </body>
 </html>
